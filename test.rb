@@ -68,11 +68,11 @@ class Test < MiniTest::Unit::TestCase
 
 # Check to see if test added two Magnanimous post shave products to the box.
   driver.li(:id,'ember2673').wait_until_present
-  assert(driver.li(:id,'ember2673').button().text.include?("2"), "Failed to add two Magnanimous post shave products ")
+  assert_equal("QTY. 2", driver.li(:id,'ember2673').button().text, "Failed to add Magnanimous post shave products to the box")
 
 # Check to see if test added Boogies Dream Hair Cream product to the box.
-  driver.li(:id,'ember2676').wait_until_present
-  assert(driver.li(:id,'ember2676').button().text.include?("1"), "Failed to add Boogies Dream Hair Cream")
+    driver.li(:id,'ember2676').wait_until_present
+    assert_equal("QTY. 1", driver.li(:id,'ember2676').button().text, "Failed to add Boogies Dream Hair Cream product to the box")
 
 #click on Boogies quantity
   find_Click(driver.li(:id,'ember2676').button)
@@ -90,9 +90,8 @@ class Test < MiniTest::Unit::TestCase
   find_Click(driver.div(:class,'grid-container').i(:id,'ember2752'))
 
 #check to see if boogies's Dream Hair Cream was deleted.
-  driver.div(:class,'grid-container').li(:class,'subtotal').wait_until_present
-  assert(driver.div(:class,'grid-container').li(:class,'subtotal').text.include?("2"), "failed to remove Boogies Dream Hair Cream")
-
+    driver.footer(:class,'fixed-footer').div(:class,'grid-container').ul(:id,"ember2866").li(:class,'subtotal').label.wait_until_present
+    assert_equal("Sub Total (2 Items)", driver.footer(:class,'fixed-footer').div(:class,'grid-container').ul(:id,"ember2866").li(:class,'subtotal').label.text, "Failed to delete Boogies Dream Hair Cream product from the box")
 # Quit the driver
 
     driver.quit
